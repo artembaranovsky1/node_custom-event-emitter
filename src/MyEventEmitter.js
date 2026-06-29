@@ -34,7 +34,7 @@ class MyEventEmitter {
   }
   emit(event, ...args) {
     if (!this.events[event]) {
-      return this;
+      return false;
     }
 
     this.events[event].forEach((callback) => {
@@ -63,6 +63,10 @@ class MyEventEmitter {
   }
 
   removeAllListeners(event) {
+    if (!event) {
+      this.events = {};
+    }
+
     if (!this.events[event]) {
       return this;
     }
@@ -72,7 +76,7 @@ class MyEventEmitter {
     return this;
   }
 
-  listenerCount(event, callback) {
+  listenerCount(event) {
     if (!this.events[event]) {
       return 0;
     }
